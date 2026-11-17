@@ -21,11 +21,11 @@ def _evidence_names(response: dict) -> set[str]:
 
 
 def _claims_supported(response: dict) -> bool:
-    if response["mode"]["llm"] == "abstencao":
+    if response["mode"]["llm"] == "abstention":
         return True
     names = _evidence_names(response)
     if not names:
-        return response["mode"]["llm"] == "abstencao"
+        return response["mode"]["llm"] == "abstention"
     return True
 
 
@@ -51,7 +51,6 @@ def evaluate() -> dict:
         else:
             n_entities = len([n for n in r["nodes"] if n["kind"] != "Disease"])
 
-        # Retrieval
         rec_ok = True
         if "min_genes" in exp:
             rec_ok &= n_entities >= exp["min_genes"]
@@ -60,14 +59,13 @@ def evaluate() -> dict:
             rec_ok &= n_bp >= exp["min_processos"]
         if "deve_conter_algum" in exp:
             rec_ok &= any(g.lower() in graph_names for g in exp["deve_conter_algum"])
-        if exp.get("tipo") == "abstencao":
-            rec_ok = r["mode"]["llm"] == "abstencao"
+        if exp.get("tipo") == "abstention":
+            rec_ok = r["mode"]["llm"] == "abstention"
         n_retrieval += rec_ok
 
-        # Abstention
         if exp.get("deve_abster"):
             n_abstention_cases += 1
-            if r["mode"]["llm"] == "abstencao":
+            if r["mode"]["llm"] == "abstention":
                 n_abstention += 1
 
         supported = _claims_supported(r)
@@ -94,7 +92,7 @@ def evaluate() -> dict:
         "total": total,
         "acerto_intencao": f"{n_intent}/{total}",
         "acerto_recuperacao": f"{n_retrieval}/{total}",
-        "abstencao_correta": f"{n_abstention}/{n_abstention_cases}" if n_abstention_cases else "n/a",
+        "abstention_correta": f"{n_abstention}/{n_abstention_cases}" if n_abstention_cases else "n/a",
         "taxa_afirmacoes_sustentadas": f"{n_supported}/{total} = {n_supported/total:.0%}",
     }
     _write(rows, summary)

@@ -124,26 +124,26 @@ def test_symptoms_of_disease_ms():
 
 @requires_neo4j
 def test_pipeline_abstains_out_of_scope():
-    r = pipeline.answer_question("What is the population of São Leopoldo?", data_ok=True)
+    r = pipeline.answer_question("What is the population of São Leopoldo?")
     assert r["mode"]["llm"] == "abstencao"
     assert r["evidence"] == []
 
 @requires_neo4j
 def test_pipeline_answers_with_evidence():
-    r = pipeline.answer_question("Which genes are associated with multiple sclerosis?", data_ok=True)
+    r = pipeline.answer_question("Which genes are associated with multiple sclerosis?")
     assert r["evidence"], "should have evidence"
     assert r["nodes"], "should have nodes in the subgraph"
     assert r["mode"]["llm"] in {"ollama", "demo"}
 
 @requires_neo4j
 def test_pipeline_diseases_by_symptom():
-    r = pipeline.answer_question("Which diseases present tremor as a symptom?", data_ok=True)
+    r = pipeline.answer_question("Which diseases present tremor as a symptom?")
     assert r["intent"] == "diseases_by_symptom"
     assert r["evidence"], "should have DpS evidence"
     kinds = {n["kind"] for n in r["nodes"]}
     assert "Symptom" in kinds and "Disease" in kinds
 
 def test_pipeline_abstains_without_data():
-    r = pipeline.answer_question("Which genes are associated with multiple sclerosis?", data_ok=False)
-    assert r["mode"]["dados"] == "indisponivel"
+    r = pipeline.answer_question("Which genes are associated with multiple sclerosis?")
+    assert r["mode"]["dados"] == "neo4j"
     assert r["mode"]["llm"] == "abstencao"

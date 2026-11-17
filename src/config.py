@@ -24,7 +24,7 @@ NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-CHAT_MODEL = os.getenv("MODELO_CHAT", "qwen3:8b")
+MODEL = os.getenv("MODEL", "qwen3:8b")
 
 
 MAX_NODES = int(os.getenv("MAX_NODES", "40"))
@@ -34,10 +34,6 @@ MAX_BP_PER_GENE = int(os.getenv("MAX_BP_POR_GENE", "6"))
 
 SOURCE = "Hetionet v1.0"
 SOURCE_URL = "https://het.io/"
-SOURCE_CITATION = (
-    "Himmelstein et al. (2017), Systematic integration of biomedical knowledge "
-    "prioritizes drugs for repurposing. eLife 6:e26726. https://doi.org/10.7554/eLife.26726"
-)
 
 TYPE_COLORS = {
     "Disease": "#E4572E",            

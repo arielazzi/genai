@@ -8,7 +8,7 @@ from st_link_analysis import EdgeStyle, NodeStyle, st_link_analysis
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from src import config, graph_context, llm, neo4j_client, pipeline
+from src import config, graph_context, pipeline
 
 st.set_page_config(page_title="BioGraph AI", layout="wide")
 
@@ -124,7 +124,7 @@ def process(question: str) -> None:
                 "nodes": [], "links": [], "evidence": [],
                 "intent": "error", "source": config.SOURCE,
                 "mode": {"dados": "error", "llm": "error"},
-                "limitations": list(),
+                "limitations": [],
             }
     st.session_state.history.append({"question": question, "response": response})
     st.session_state.last = response
@@ -205,8 +205,3 @@ def main() -> None:
             graph_panel(last)
             evidence_panel(last)
 
-
-if __name__ == "__main__":
-    main()
-else:
-    main()

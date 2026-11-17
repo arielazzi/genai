@@ -11,18 +11,18 @@ def _base_response(intent_kind: str, data_mode: str) -> dict:
         "evidence": [],
         "intent": intent_kind,
         "source": config.SOURCE,
-        "mode": {"dados": data_mode, "llm": "n/a"},
-        "limitations": list(),
+        "mode": {"data": data_mode, "llm": "n/a"},
+        "limitations": [],
     }
 
 
 def _abstain(response: dict, message: str) -> dict:
     response["answer"] = message
-    response["mode"]["llm"] = "abstencao"
+    response["mode"]["llm"] = "abstention"
     return response
 
 
-def answer_question(question: str, data_ok: bool = True) -> dict:
+def answer_question(question: str) -> dict:
     it = intent.identify(question)
 
     resp = _base_response(it.kind, "neo4j")

@@ -13,7 +13,6 @@ if __package__ in (None, ""):
 
 from src import neo4j_client
 
-# ── Intent trigger words (English) ──
 PROCESS_TERMS = [
     "biological process",
     "biological processes",
@@ -49,8 +48,6 @@ DISEASE_BY_SYMPTOM_TERMS = [
     "causes",
 ]
 
-# "Differential" framing: when the user describes a PATIENT with symptoms, use the
-# differential-diagnosis intent even with a single symptom.
 DIFFERENTIAL_TERMS = [
     "patient",
     "presents the symptoms",

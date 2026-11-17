@@ -19,12 +19,12 @@ def ollama_available() -> tuple[bool, str]:
         r = requests.get(f"{config.OLLAMA_HOST}/api/tags", timeout=4)
         r.raise_for_status()
         models = [m.get("name", "") for m in r.json().get("models", [])]
-        base = config.CHAT_MODEL.split(":")[0]
+        base = config.MODEL.split(":")[0]
         if any(m.startswith(base) for m in models):
-            return True, f"Ollama ativo com '{config.CHAT_MODEL}'."
+            return True, f"Ollama ativo com '{config.MODEL}'."
         return False, (
-            f"Ollama ativo, mas '{config.CHAT_MODEL}' não foi baixado "
-            f"(rode: ollama pull {config.CHAT_MODEL})."
+            f"Ollama ativo, mas '{config.MODEL}' não foi baixado "
+            f"(rode: ollama pull {config.MODEL})."
         )
     except requests.RequestException as error:
         return False, f"Ollama indisponível ({type(error).__name__})."
@@ -50,10 +50,10 @@ def _user_prompt(question: str, evidence: list[dict]) -> str:
 def generate_answer(question: str, evidence: list[dict]) -> tuple[str, str]:
     client = ollama.Client(host=config.OLLAMA_HOST)
     extra = {}
-    if config.CHAT_MODEL.startswith(("qwen3", "deepseek-r1")):
-        extra["think"] = False  # same as the professor: faster answer
+    if config.MODEL.startswith(("qwen3", "deepseek-r1")):
+        extra["think"] = False 
     response = client.chat(
-        model=config.CHAT_MODEL,
+        model=config.MODEL,
         messages=[
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": _user_prompt(question, evidence)},
