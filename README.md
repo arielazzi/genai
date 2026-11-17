@@ -1,0 +1,1 @@
+# GraphRAG biomédico sobre Hetionet
