@@ -123,7 +123,7 @@ def process(question: str) -> None:
                 "answer": f"An error occurred while processing the question: {error}",
                 "nodes": [], "links": [], "evidence": [],
                 "intent": "error", "source": config.SOURCE,
-                "mode": {"dados": "error", "llm": "error"},
+                "mode": {"data": "error", "llm": "error"},
                 "limitations": [],
             }
     st.session_state.history.append({"question": question, "response": response})

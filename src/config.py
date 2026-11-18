@@ -29,17 +29,17 @@ MODEL = os.getenv("MODEL", "qwen3:8b")
 
 MAX_NODES = int(os.getenv("MAX_NODES", "40"))
 MAX_GENES = int(os.getenv("MAX_GENES", "15"))
-MAX_BP_PER_GENE = int(os.getenv("MAX_BP_POR_GENE", "6"))
+MAX_BP_PER_GENE = int(os.getenv("MAX_BP_PER_GENE", "6"))
 
 
 SOURCE = "Hetionet v1.0"
 SOURCE_URL = "https://het.io/"
 
 TYPE_COLORS = {
-    "Disease": "#E4572E",            
-    "Gene": "#4C9AFF",               
-    "BiologicalProcess": "#2EC4B6",  
-    "Symptom": "#F6C945",            
+    "Disease": "#E4572E",
+    "Gene": "#4C9AFF",
+    "BiologicalProcess": "#2EC4B6",
+    "Symptom": "#F6C945",
 }
 
 PREDICATES = {

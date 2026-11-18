@@ -28,7 +28,7 @@ def answer_question(question: str) -> dict:
     resp = _base_response(it.kind, "neo4j")
 
     if it.kind == "out_of_scope":
-        return _abstain(resp, "It's not possible to indentify the intent from the question.")
+        return _abstain(resp, "It's not possible to identify the intent from the question.")
 
     if it.kind == "genes_of_disease":
         records = retrieval.genes_of_disease(it.diseases[0])

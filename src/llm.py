@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import requests
-import ollama 
+import ollama
 from src import config
 
 SYSTEM = (
@@ -13,21 +12,6 @@ SYSTEM = (
     "4. if the relations are insufficient, say so clearly. Be concise and cite entities by name."
 )
 
-
-def ollama_available() -> tuple[bool, str]:
-    try:
-        r = requests.get(f"{config.OLLAMA_HOST}/api/tags", timeout=4)
-        r.raise_for_status()
-        models = [m.get("name", "") for m in r.json().get("models", [])]
-        base = config.MODEL.split(":")[0]
-        if any(m.startswith(base) for m in models):
-            return True, f"Ollama ativo com '{config.MODEL}'."
-        return False, (
-            f"Ollama ativo, mas '{config.MODEL}' não foi baixado "
-            f"(rode: ollama pull {config.MODEL})."
-        )
-    except requests.RequestException as error:
-        return False, f"Ollama indisponível ({type(error).__name__})."
 
 
 def _evidence_to_text(evidence: list[dict]) -> str:

@@ -64,9 +64,9 @@ DIFFERENTIAL_TERMS = [
 @dataclass
 class Intent:
     kind: str
-    diseases: list[str] = field(default_factory=list)   # real node IDs
-    labels: list[str] = field(default_factory=list)     # real graph names (English)
-    symptoms: list[str] = field(default_factory=list)   # real Symptom IDs
+    diseases: list[str] = field(default_factory=list)
+    labels: list[str] = field(default_factory=list)
+    symptoms: list[str] = field(default_factory=list)
 
 
 def _normalize(text: str) -> str:

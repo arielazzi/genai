@@ -45,13 +45,6 @@ def run_query(cypher: str, **params: Any) -> list[dict]:
         return [r.data() for r in s.run(cypher, **params)]
 
 
-@contextmanager
-def session():
-    drv = get_driver()
-    with drv.session(database=config.NEO4J_DATABASE) as s:
-        yield s
-
-
 def close() -> None:
     global _driver
     if _driver is not None:
