@@ -33,9 +33,9 @@ def ping() -> tuple[bool, str]:
         drv.verify_connectivity()
         with drv.session(database=config.NEO4J_DATABASE) as s:
             n = s.run("MATCH (n) RETURN count(n) AS n").single()["n"]
-        return True, f"Neo4j conectado ({n} nós em '{config.NEO4J_DATABASE}')."
+        return True, f"Neo4j connected"
     except (ServiceUnavailable, Neo4jError, OSError, ValueError) as error:
-        return False, f"Neo4j indisponível: {type(error).__name__}: {error}"
+        return False, f"Neo4j unavailable: {type(error).__name__}: {error}"
 
 
 def run_query(cypher: str, **params: Any) -> list[dict]:

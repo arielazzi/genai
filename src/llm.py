@@ -12,8 +12,6 @@ SYSTEM = (
     "4. if the relations are insufficient, say so clearly. Be concise and cite entities by name."
 )
 
-
-
 def _evidence_to_text(evidence: list[dict]) -> str:
     lines = [
         f'- {e["subject"]} {e["predicate"]} {e["object"]}'
